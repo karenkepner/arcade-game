@@ -13,7 +13,7 @@ class Enemy {
         this.y = y;
         this.width = 100;
         this.height = 50;
-        this.speed = Math.floor((Math.random() * 180) + (Math.random() * 142) + 100);
+        this.speed = Math.floor((Math.random() * 180) + (Math.random() * 142) + 80);
     }
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
@@ -23,8 +23,8 @@ class Enemy {
         // all computers.        
         this.x = this.x + this.speed * dt;
         //when the enemy travels off the screen, return it back to the start.
-        if (this.x > 600) {
-            this.x = 0;
+        if (this.x > 500) {
+            this.x = -100;
         }
     }
     // Draw the enemy on the screen, required method for game
@@ -54,19 +54,23 @@ class Player {
                 //collision occured! send player to starting point.
                 this.x = 200;
                 this.y = 315;
+                //remove points if player has any.
                 if (score > 5) {
                     score-= 5;
                 }
             }
         }
         if (this.y === -25) {
+            //return player to start
             this.x = 200;
             this.y = 400;
+            //alert player that they won
             alert("you made it!");
+            //give player points
             score+= 25;
         }
     }
-    // 
+    
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
