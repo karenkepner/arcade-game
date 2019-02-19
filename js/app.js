@@ -56,7 +56,7 @@ class Player {
                 this.x = 200;
                 this.y = 315;
                 //remove points if player has any.
-                if (score > 5) {
+                if (score > 0) {
                     score-= 5;
                 }
             }
