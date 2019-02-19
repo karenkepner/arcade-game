@@ -1,3 +1,6 @@
+let score = 0;
+
+
 // Enemies our player must avoid
 class Enemy {
     constructor(y) {
@@ -10,7 +13,7 @@ class Enemy {
         this.y = y;
         this.width = 100;
         this.height = 50;
-        this.speed = Math.floor((Math.random() * 180) + (Math.random() * 142) + 104);
+        this.speed = Math.floor((Math.random() * 180) + (Math.random() * 142) + 100);
     }
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
@@ -39,7 +42,7 @@ class Player {
     constructor() {
         this.sprite = 'images/char-horn-girl.png';
         this.x = 200;
-        this.y = 325;
+        this.y = 400;
         this.width = 50;
         this.height = 50;
     }
@@ -51,7 +54,16 @@ class Player {
                 //collision occured! send player to starting point.
                 this.x = 200;
                 this.y = 315;
+                if (score > 5) {
+                    score-= 5;
+                }
             }
+        }
+        if (this.y === -25) {
+            this.x = 200;
+            this.y = 400;
+            alert("you made it!");
+            score+= 25;
         }
     }
     // 
@@ -76,7 +88,7 @@ class Player {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-let player =  new Player; //awesome! made the game board show up.
+let player =  new Player;
 
 let allEnemies = [];
 
