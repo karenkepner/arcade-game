@@ -3,3 +3,11 @@ body {
     font-family: 'Coiny', cursive;
 }
 
+h2,
+h3 {
+    margin: 0;
+}
+
+canvas {
+    padding-top: 0;
+}
