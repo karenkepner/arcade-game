@@ -1,4 +1,5 @@
 let score = 0;
+let scorePost = document.querySelector('#score');
 
 
 // Enemies our player must avoid
@@ -69,6 +70,7 @@ class Player {
             //give player points
             score+= 25;
         }
+        scorePost.innerHTML = `Score: ${score}`;
     }
     
     render() {
