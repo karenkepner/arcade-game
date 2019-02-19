@@ -8,6 +8,8 @@ class Enemy {
         this.sprite = 'images/enemy-bug.png';
         this.x = 0;
         this.y = y;
+        this.width = 100;
+        this.height = 50;
         this.speed = Math.floor((Math.random() * 180) + (Math.random() * 142) + 104);
     }
     // Update the enemy's position, required method for game
@@ -17,6 +19,10 @@ class Enemy {
         // which will ensure the game runs at the same speed for
         // all computers.        
         this.x = this.x + this.speed * dt;
+        //when the enemy travels off the screen, return it back to the start.
+        if (this.x > 600) {
+            this.x = 0;
+        }
     }
     // Draw the enemy on the screen, required method for game
     render() {
@@ -33,24 +39,26 @@ class Player {
     constructor() {
         this.sprite = 'images/char-horn-girl.png';
         this.x = 200;
-        this.y = 315;
+        this.y = 325;
+        this.width = 50;
+        this.height = 50;
     }
 
     update() {
         //detect collisions with enemy using bounding box test
         for (let enemy of allEnemies) {
-            if (this.x < enemy.x + enemy.width && this.x + this.width > enemy.x && this.y < enemy.y + enemy.height &&this.y + this.height > enemy.y) {
+            if (this.x < enemy.x + enemy.width && this.x + this.width > enemy.x && this.y < enemy.y + enemy.height && this.y + this.height > enemy.y) {
                 //collision occured! send player to starting point.
                 this.x = 200;
                 this.y = 315;
             }
         }
     }
-
+    // 
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
-    
+
     handleInput(key) {
         if (key === 'left' && this.x > 20) {
             return this.x -= 100;
@@ -77,12 +85,12 @@ function makeEnemy(y) {
   allEnemies.push(enemy);
 }
 
-makeEnemy(230);
+makeEnemy(225);
 makeEnemy(150);
 makeEnemy(50);
 makeEnemy(150);
-makeEnemy(120);
-makeEnemy(230);
+makeEnemy(50);
+makeEnemy(225);
 makeEnemy(150);
 
 
