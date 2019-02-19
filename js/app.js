@@ -1,14 +1,14 @@
 // Enemies our player must avoid
 class Enemy {
-    constructor() {
+    constructor(y) {
         // Variables applied to each of our instances go here,
         // we've provided one for you to get started
         // The image/sprite for our enemies, this uses
         // a helper we've provided to easily load images
         this.sprite = 'images/enemy-bug.png';
         this.x = 0;
-        this.y = 50;
-        this.speed = 275;
+        this.y = y;
+        this.speed = Math.floor((Math.random() * 180) + (Math.random() * 142) + 104);
     }
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
@@ -31,18 +31,36 @@ class Enemy {
 // a handleInput() method.
 class Player {
     constructor() {
-        this.sprite = 'images/enemy-bug.png';
-        this.x = 300;
-        this.y = 200;
+        this.sprite = 'images/char-horn-girl.png';
+        this.x = 200;
+        this.y = 315;
     }
-    update() {
 
+    update() {
+        //detect collisions with enemy using bounding box test
+        for (let enemy of allEnemies) {
+            if (this.x < enemy.x + enemy.width && this.x + this.width > enemy.x && this.y < enemy.y + enemy.height &&this.y + this.height > enemy.y) {
+                //collision occured! send player to starting point.
+                this.x = 200;
+                this.y = 315;
+            }
+        }
     }
+
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
-    handleInput() {
-        
+    
+    handleInput(key) {
+        if (key === 'left' && this.x > 20) {
+            return this.x -= 100;
+        } else if (key === 'up' && this.y >30) {
+            this.y -= 85;
+        } else if (key === 'right' && this.x < 400) {
+            this.x += 100;
+        } else if (key === 'down' && this.y < 400) {
+            this.y += 85;
+        }
     }
 }
 
@@ -51,10 +69,22 @@ class Player {
 // Place the player object in a variable called player
 
 let player =  new Player; //awesome! made the game board show up.
-let enemy1 = new Enemy;
 
 let allEnemies = [];
-allEnemies.push(enemy1);
+
+function makeEnemy(y) {
+  let enemy = new Enemy(y);
+  allEnemies.push(enemy);
+}
+
+makeEnemy(230);
+makeEnemy(150);
+makeEnemy(50);
+makeEnemy(150);
+makeEnemy(120);
+makeEnemy(230);
+makeEnemy(150);
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -67,4 +97,5 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+
 });
