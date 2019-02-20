@@ -46,7 +46,7 @@ class Player {
     }
 
     update() {
-        //detect collisions with enemy using bounding box test
+        //detect collisions with enemy using bounding box test from mdn.
         for (let enemy of allEnemies) {
             if (this.x < enemy.x + enemy.width && this.x + this.width > enemy.x && this.y < enemy.y + enemy.height && this.y + this.height > enemy.y) {
                 //collision occured! send player to starting point.
@@ -59,17 +59,15 @@ class Player {
             }
         }
         if (this.y === -25) {
-            // this.sprite.style.animation = 'shake 0.5s';
-            alert("you made it!");
             //alert player that they won
-            // alert("you made it!");
+            this.y = -26;
+            alert("you made it!");
             //give player points
             score+= 25;
             //return player to start
             this.x = 200;
             this.y = 400;
         }
-
         scorePost.innerHTML = `Score: ${score}`;
     }
     
@@ -95,7 +93,6 @@ class Player {
 // Place the player object in a variable called player
 
 let player =  new Player;
-
 let allEnemies = [];
 
 function makeEnemy(y) {
@@ -111,10 +108,6 @@ makeEnemy(65);
 makeEnemy(225);
 makeEnemy(145);
 
-function sendHome() {
-    this.x = 200;
-    this.y = 400;
-}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
