@@ -1,7 +1,6 @@
 let score = 0;
 let scorePost = document.querySelector('#score');
 
-
 // Enemies our player must avoid
 class Enemy {
     constructor(y) {
@@ -34,8 +33,6 @@ class Enemy {
     }
 }
 
-
-
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -54,7 +51,7 @@ class Player {
             if (this.x < enemy.x + enemy.width && this.x + this.width > enemy.x && this.y < enemy.y + enemy.height && this.y + this.height > enemy.y) {
                 //collision occured! send player to starting point.
                 this.x = 200;
-                this.y = 315;
+                this.y = 400;
                 //remove points if player has any.
                 if (score > 0) {
                     score-= 5;
@@ -62,14 +59,17 @@ class Player {
             }
         }
         if (this.y === -25) {
+            // this.sprite.style.animation = 'shake 0.5s';
+            alert("you made it!");
+            //alert player that they won
+            // alert("you made it!");
+            //give player points
+            score+= 25;
             //return player to start
             this.x = 200;
             this.y = 400;
-            //alert player that they won
-            alert("you made it!");
-            //give player points
-            score+= 25;
         }
+
         scorePost.innerHTML = `Score: ${score}`;
     }
     
@@ -104,13 +104,17 @@ function makeEnemy(y) {
 }
 
 makeEnemy(225);
+makeEnemy(145);
+makeEnemy(65);
 makeEnemy(150);
-makeEnemy(50);
-makeEnemy(150);
-makeEnemy(50);
+makeEnemy(65);
 makeEnemy(225);
-makeEnemy(150);
+makeEnemy(145);
 
+function sendHome() {
+    this.x = 200;
+    this.y = 400;
+}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
